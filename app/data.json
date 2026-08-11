@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "nom": "MLflow",
+      "categorie": "Suivi d'expériences",
+      "prix": 0.0,
+      "description": "Plateforme open-source pour la gestion du cycle de vie ML (suivi d'expériences, registre de modèles).",
+      "statut": "Production"
+    },
+    {
+      "id": 2,
+      "nom": "DVC (Data Version Control)",
+      "categorie": "Contrôle de version des données",
+      "prix": 0.0,
+      "description": "Système de contrôle de version pour les jeux de données et les pipelines de Machine Learning.",
+      "statut": "Production"
+    },
+    {
+      "id": 3,
+      "nom": "Evidently AI",
+      "categorie": "Surveillance de modèles",
+      "prix": 49.99,
+      "description": "Outil d'évaluation et de détection des dérives de données (data drift) et de performances des modèles.",
+      "statut": "Production"
+    },
+    {
+      "id": 4,
+      "nom": "BentoML",
+      "categorie": "Déploiement de modèles",
+      "prix": 29.99,
+      "description": "Framework pour empaqueter et servir des modèles ML sous forme de microservices performants.",
+      "statut": "Production"
+    },
+    {
+      "id": 5,
+      "nom": "Feast",
+      "categorie": "Magasin de caractéristiques",
+      "prix": 0.0,
+      "description": "Magasin de caractéristiques (Feature Store) open-source permettant de stocker et servir des caractéristiques pour le ML.",
+      "statut": "Beta"
+    },
+    {
+      "id": 6,
+      "nom": "Prefect",
+      "categorie": "Orchestration",
+      "prix": 19.99,
+      "description": "Orchestrateur de flux de travail moderne conçu pour le traitement de données et pipelines ML.",
+      "statut": "Production"
+    },
+    {
+      "id": 7,
+      "nom": "Great Expectations",
+      "categorie": "Qualité des données",
+      "prix": 0.0,
+      "description": "Outil de validation et de documentation de la qualité des données pour les pipelines de données.",
+      "statut": "Production"
+    },
+    {
+      "id": 8,
+      "nom": "Triton Inference Server",
+      "categorie": "Déploiement de modèles",
+      "prix": 0.0,
+      "description": "Serveur d'inférence haute performance développé par NVIDIA pour GPU et CPU.",
+      "statut": "Production"
+    },
+    {
+      "id": 9,
+      "nom": "ClearML",
+      "categorie": "Plateforme MLOps",
+      "prix": 99.0,
+      "description": "Suite MLOps complète intégrant CI/CD, expérimentation, automatisation et orchestration.",
+      "statut": "Production"
+    },
+    {
+      "id": 10,
+      "nom": "Weights & Biases",
+      "categorie": "Suivi d'expériences",
+      "prix": 50.0,
+      "description": "Plateforme SaaS de suivi d'expériences, visualisation de métriques et collaboration ML.",
+      "statut": "Production"
+    }
+  ]
+}
