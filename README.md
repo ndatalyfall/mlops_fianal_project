@@ -1,15 +1,37 @@
-# M1 DSIA - Projet MLOps : API FastAPI conteneurisée & Docker Hub
+# M1 DSIA - Projet MLOps : API FastAPI conteneurisée, Docker Hub & Pipeline CI/CD
 
-Ce projet consiste à concevoir, conteneuriser avec Docker et publier une API REST complète développée avec **FastAPI**. L'API permet la consultation et la gestion (CRUD complet) d'un catalogue d'outils MLOps stockés dans un fichier `data.json`.
+Ce projet consiste à concevoir, conteneuriser avec Docker, automatiser via un pipeline CI/CD GitHub Actions et publier une API REST complète développée avec **FastAPI**. L'API permet la consultation et la gestion (CRUD complet) d'un catalogue d'outils MLOps stockés dans un fichier `data.json`.
 
 ---
 
 ## 📌 Présentation du Projet & Thème
 
-- **Thème choisi** : Catalogue d'Outils et Modèles MLOps (Experiment Tracking, Data Versioning, Model Monitoring, Model Serving, Feature Store, etc.).
+- **Thème choisi** : Catalogue d'Outils et Modèles MLOps (Suivi d'expériences, Contrôle de version des données, Surveillance de modèles, Déploiement de modèles, Magasin de caractéristiques, etc.).
 - **Projet** : M1 DSIA - Année universitaire 2024–2025
+- **Nom de l'image Docker** : `mlops_api`
 - **Membres de l'équipe** : [Insérer les noms / prénoms des membres du groupe]
-- **Image Docker Hub** : [https://hub.docker.com/r/<username>/dsia-api](https://hub.docker.com/r/<username>/dsia-api)
+- **Image Docker Hub publique** : [https://hub.docker.com/r/ndataly/mlops_api](https://hub.docker.com/r/ndataly/mlops_api)
+
+---
+
+## 🔄 Pipeline CI/CD (GitHub Actions)
+
+Un workflow d'intégration et de déploiement continu est configuré dans [.github/workflows/ci-cd.yml](file:///.github/workflows/ci-cd.yml) :
+
+1. **Intégration Continue (CI)** :
+   - Déclenchée à chaque `push` ou `pull request` sur les branches `main` / `master`.
+   - Installation de Python 3.11 et des dépendances (`requirements.txt`).
+   - Exécution de la suite de tests automatisés (`pytest tests/test_api.py`).
+
+2. **Déploiement Continu (CD)** :
+   - Exécutée uniquement si les tests CI réussissent lors d'un `push` sur la branche principale.
+   - Connexion automatique à Docker Hub via les secrets GitHub.
+   - Build et publication automatique de l'image `ndataly/mlops_api:latest` et `ndataly/mlops_api:v1.0` sur Docker Hub.
+
+### 🔑 Secrets à configurer sur GitHub
+Dans votre dépôt GitHub, allez dans **Settings > Secrets and variables > Actions** et ajoutez :
+- `DOCKER_HUB_USERNAME` : `ndataly`
+- `DOCKER_HUB_TOKEN` : Un token d'accès généré sur Docker Hub (dans *Account Settings > Personal Access Tokens*).
 
 ---
 
@@ -28,64 +50,7 @@ Ce projet consiste à concevoir, conteneuriser avec Docker et publier une API RE
 
 ---
 
-## 📝 Exemples de Requêtes & Réponses JSON
-
-### 1. `POST /items` (Ajouter un élément)
-**Body de la requête** :
-```json
-{
-  "nom": "KubeFlow",
-  "categorie": "Orchestration",
-  "prix": 0.0,
-  "description": "Plateforme MLOps dédiée au déploiement de workflows sur Kubernetes.",
-  "statut": "Production"
-}
-```
-**Réponse `201 Created`** :
-```json
-{
-  "id": 11,
-  "nom": "KubeFlow",
-  "categorie": "Orchestration",
-  "prix": 0.0,
-  "description": "Plateforme MLOps dédiée au déploiement de workflows sur Kubernetes.",
-  "statut": "Production"
-}
-```
-
-### 2. `PUT /items/11` (Remplacement complet)
-**Body de la requête** :
-```json
-{
-  "nom": "KubeFlow Pipelines",
-  "categorie": "Orchestration & Pipelines",
-  "prix": 0.0,
-  "description": "Système de pipelines pour Kubeflow.",
-  "statut": "Production"
-}
-```
-
-### 3. `PATCH /items/11` (Modification partielle)
-**Body de la requête** :
-```json
-{
-  "prix": 10.0,
-  "statut": "Beta"
-}
-```
-
-### 4. `DELETE /items/11` (Suppression)
-**Réponse `200 OK`** :
-```json
-{
-  "message": "Élément id=11 supprimé avec succès.",
-  "deleted_item": { ... }
-}
-```
-
----
-
-## 🛠️ Exécution en Local
+## 🛠️ Exécution en Local (sans Docker)
 
 ### Lancement du serveur avec Uvicorn
 ```bash
@@ -101,21 +66,31 @@ pytest tests/test_api.py -v
 
 ---
 
-## 🚀 Conteneurisation & Publication Docker Hub
+## 🚀 Conteneurisation & Test Docker Local
 
-### Build de l'image Docker
+### 1. Build de l'image Docker
 ```bash
-docker build -t dsia-api:v1.0 .
+docker build -t ndataly/mlops_api:v1.0 .
 ```
 
-### Lancement du conteneur
+### 2. Lancement du conteneur
 ```bash
-docker run -d -p 8000:8000 --name mlops-api-container dsia-api:v1.0
+docker run -d -p 8000:8000 --name mlops-api-container ndataly/mlops_api:v1.0
+```
+Tester l'API conteneurisée sur `http://localhost:8000/health`.
+
+### 3. Arrêt du conteneur
+```bash
+docker stop mlops-api-container
+docker rm mlops-api-container
 ```
 
-### Push sur Docker Hub
+---
+
+## 📦 Publication Manuelle sur Docker Hub
+
 ```bash
 docker login
-docker tag dsia-api:v1.0 <username>/dsia-api:v1.0
-docker push <username>/dsia-api:v1.0
+docker tag mlops_api:v1.0 ndataly/mlops_api:v1.0
+docker push ndataly/mlops_api:v1.0
 ```
