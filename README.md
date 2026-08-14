@@ -1,3 +1,8 @@
+# Membres du projet
+- Seynabou Gueye
+- Mamadou Demba Fall
+- Ndataly Fall
+
 # M1 DSIA - Projet MLOps : API FastAPI conteneurisée, Docker Hub & Pipeline CI/CD
 
 Ce projet consiste à concevoir, conteneuriser avec Docker, automatiser via un pipeline CI/CD GitHub Actions et publier une API REST complète développée avec **FastAPI**. L'API permet la consultation et la gestion (CRUD complet) d'un catalogue d'outils MLOps stockés dans un fichier `data.json`.
